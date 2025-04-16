@@ -15,6 +15,8 @@ Property StatusProcesso As %String [ SqlColumnNumber = 7 ];
 
 Property ListaLog As list Of Treinamento.Data.VO.LogMensagem;
 
+Index IdxStatus On Status;
+
 ClassMethod CriarEntrada(pMetodo As %String, pClasse As %String) As Treinamento.Data.LogMensagem
 {
     
@@ -63,6 +65,47 @@ ClassMethod Finalizar(pIdLog As %Integer, pStatusProcess As %String, pStatusCode
     return entry
 }
 
+ClassMethod ConsultaLog(pStatus As %String, pDataInicio As %String, pDataFim As %String) As Treinamento.Data.VO.LogMensagem
+{
+    Set tSC = $$$OK    
+    Try {
+        #Dim exception as %Exception.General = ""
+        #Dim statusCode as %Status = $SYSTEM.Status.OK()
+        #Dim SQL  As %String = ""
+        #Dim resultSet as %ResultSet 
+        #Dim entry as LogMensagem   = ..%New()
+
+        Set SQL = "SELECT * FROM Treinamento_Data.LogMensagem where Status = "_pStatus
+        Set SQL = SQL_" AND FIM<='"_pDataFim_"'"
+
+
+       set resultSet = ##class(%ResultSet).%New()
+       Set statusCode = resultSet.Prepare(SQL)
+       Set statusCode = resultSet.Execute()
+       if $SYSTEM.Status.Error(statusCode) return statusCode
+       While (resultSet.Next()) {
+         Set pItem=##class(Treinamento.Data.VO.LogMensagem).%New()
+         Set pItem.Metodo = resultSet.%Get("Metodo")
+         Set pItem.Classe = resultSet.%Get(("Classe"))
+         Set pItem.Inicio = resultSet.%Get(("Inicio"))
+         Set pItem.Fim = resultSet.%Get(("Fim"))
+         Set pItem.Status = resultSet.%Get(("Status"))
+         Set pItem.StatusProcesso = resultSet.%Get(("StatusProcesso"))
+         Do entry.ListaLog.Insert((pItem))
+       }
+       return entry
+
+        
+    }
+    Catch (exception) {
+        Set tSC=exception.AsStatus()
+        set erroMensagem = $SYSTEM.Status.GetErrorText(tSC)
+        Throw exception
+        
+    }
+    return entry
+}
+
 Storage Default
 {
 <Data name="LogMensagemDefaultData">
@@ -93,55 +136,8 @@ Storage Default
 </Data>
 <DataLocation>^Treinamento.Data.LogMensagemD</DataLocation>
 <DefaultData>LogMensagemDefaultData</DefaultData>
-<ExtentSize>2</ExtentSize>
 <IdLocation>^Treinamento.Data.LogMensagemD</IdLocation>
 <IndexLocation>^Treinamento.Data.LogMensagemI</IndexLocation>
-<Property name="%%CLASSNAME">
-<AverageFieldSize>2</AverageFieldSize>
-<OutlierSelectivity>.999999:</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="%%ID">
-<AverageFieldSize>3</AverageFieldSize>
-<Selectivity>1</Selectivity>
-</Property>
-<Property name="Classe">
-<AverageFieldSize>13</AverageFieldSize>
-<OutlierSelectivity>.999999:"LogMensagem"</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="Fim">
-<AverageFieldSize>2</AverageFieldSize>
-<OutlierSelectivity>.999999:</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="Inicio">
-<AverageFieldSize>21</AverageFieldSize>
-<Selectivity>50.0000%</Selectivity>
-</Property>
-<Property name="ListaLog">
-<AverageFieldSize>2</AverageFieldSize>
-<OutlierSelectivity>.999999:</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="Metodo">
-<AverageFieldSize>11</AverageFieldSize>
-<OutlierSelectivity>.999999:"LogMetodo"</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="Status">
-<AverageFieldSize>3</AverageFieldSize>
-<OutlierSelectivity>.999999:1</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="StatusProcesso">
-<AverageFieldSize>2</AverageFieldSize>
-<OutlierSelectivity>.999999:</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<SQLMap name="IDKEY">
-<BlockCount>-4</BlockCount>
-</SQLMap>
 <StreamLocation>^Treinamento.Data.LogMensagemS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }

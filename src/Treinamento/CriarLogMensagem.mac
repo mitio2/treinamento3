@@ -5,8 +5,13 @@ CriarLogMensagem ;
  set pMetodo = "LogMetodo"
  set pStatusProcesso = "Processo realizado com sucesso!"
  set pStatusCode = "1"
- 
+ Set pDataInicio = ##class(%UTC).NowLocal()
+ Set pDataFim = ""
  Set LogMensagem = ##class(Treinamento.Data.LogMensagem).CriarEntrada(pMetodo,pClasse)
 
  Set IdLog = LogMensagem.%Id()
  set LogMensageFim = ##class(Treinamento.Data.LogMensagem).Finalizar(IdLog,pStatusProcesso,pStatusCode)
+
+ Set ConsultaLog = ##class(Treinamento.Data.LogMensagem).ConsultaLog(pStatusCode,pDataInicio,pDataInicio)
+ w "qtde de log "_ConsultaLog.ListaLog.Count(), "log encontrados", !
+ 
