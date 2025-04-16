@@ -81,6 +81,6 @@ Storage Default
 <IndexLocation>^Treinamento.Data.TurmaI</IndexLocation>
 <StreamLocation>^Treinamento.Data.TurmaS</StreamLocation>
 <Type>%Storage.Persistent</Type>
-
+}
 
 }
