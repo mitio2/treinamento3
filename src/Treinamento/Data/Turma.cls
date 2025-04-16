@@ -27,6 +27,32 @@ Method VerificaStatus(curso As %String) As %String [ Language = objectscript ]
     Return statusTurma
 }
 
+ClassMethod ImprimeTurma(curso As %String) As %String [ Language = objectscript ]
+{
+    
+    Set Status = $$$OK    
+    Set SQL = "Select * from Treinamento_Data.Turma where Curso->Nome = '"_curso_"'"    
+    Set resultSet = ##class(%ResultSet).%New()
+
+     Set status = resultSet.Prepare(SQL)
+    if $SYSTEM.Status.IsError(Status) return Status
+      
+    Set status = resultSet.Execute()
+    if $SYSTEM.Status.IsError(Status) return Status
+
+    If resultSet.Next()
+    {
+        Set idTurma = resultSet.Get("ID")
+        Set turma = ##class(Treinamento.Data.Turma).%OpenId(idTurma)
+    }
+    For x= 1:1: turma.Alunos.Count()
+    {
+         Set aluno = turma.Alunos.GetAt(x)
+         W "Nome : "_aluno.Nome, " Matricula : "_aluno.Matricula, " Idade :"_aluno.Idade, !
+    }
+    return
+}
+
 Storage Default
 {
 <Data name="TurmaDefaultData">
@@ -55,6 +81,6 @@ Storage Default
 <IndexLocation>^Treinamento.Data.TurmaI</IndexLocation>
 <StreamLocation>^Treinamento.Data.TurmaS</StreamLocation>
 <Type>%Storage.Persistent</Type>
-}
+
 
 }
