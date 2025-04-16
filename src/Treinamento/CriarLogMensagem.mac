@@ -3,5 +3,10 @@ CriarLogMensagem ;
 
  Set pClasse = "LogMensagem"
  set pMetodo = "LogMetodo"
-
+ set pStatusProcesso = "Processo realizado com sucesso!"
+ set pStatusCode = "1"
+ 
  Set LogMensagem = ##class(Treinamento.Data.LogMensagem).CriarEntrada(pMetodo,pClasse)
+
+ Set IdLog = LogMensagem.%Id()
+ set LogMensageFim = ##class(Treinamento.Data.LogMensagem).Finalizar(IdLog,pStatusProcesso,pStatusCode)
