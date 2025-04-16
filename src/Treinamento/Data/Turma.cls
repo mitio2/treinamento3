@@ -77,8 +77,46 @@ Storage Default
 </Data>
 <DataLocation>^Treinamento.Data.TurmaD</DataLocation>
 <DefaultData>TurmaDefaultData</DefaultData>
+<ExtentSize>1</ExtentSize>
 <IdLocation>^Treinamento.Data.TurmaD</IdLocation>
 <IndexLocation>^Treinamento.Data.TurmaI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>3</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Alunos">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="Curso">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="DataInicio">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="Instrutor">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="Status">
+<AverageFieldSize>12</AverageFieldSize>
+<OutlierSelectivity>.999999:"Imcompleto"</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
 <StreamLocation>^Treinamento.Data.TurmaS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }

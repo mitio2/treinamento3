@@ -1,0 +1,7 @@
+ROUTINE CriarLogMensagem
+CriarLogMensagem ;
+
+ Set pClasse = "LogMensagem"
+ set pMetodo = "LogMetodo"
+
+ Set LogMensagem = ##class(Treinamento.Data.LogMensagem).CriarEntrada(pMetodo,pClasse)

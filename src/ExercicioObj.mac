@@ -42,3 +42,6 @@ ExercicioObj ;
  Set turma.Status = "Imcompleto"
   Set status = turma.%Save()
   
+ set status = ##class(Treinamento.Data.Turma).VerificaStatus("OBJScript") 
+ do ##class(Treinamento.Data.Turma).ImprimeTurma("OBJScript")
+//do ##class(Treinamento.Data.Turma).VerificaStatus()
