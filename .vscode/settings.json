@@ -1,0 +1,17 @@
+{
+    "objectscript.conn": {
+        "active": true,
+        "host": "localhost",
+        "port": 52773,
+        "username": "mitio_1eifzxz",
+        "password": "12345678",
+        "ns": "TREINAMENTO",
+        "https": false
+    },    
+    
+      "diffEditor.ignoreTrimWhitespace": false,
+      "[objectscript-class]": {
+        
+      }
+}
+  

@@ -1,0 +1,6 @@
+ROUTINE Exercicio1
+Exercicio1
+ Read !,"Digite o valor de x:", x 
+ Read !,"Digite o valor de y:", y 
+ Set j=0
+  for I=x:1:y if '(I#2) set j=j+1 write !,I
